@@ -4,10 +4,19 @@ const UlEl = document.querySelector("#ul-el");
 
 let saveButton = document.querySelector("#input-btn");
 
+// Parses values from local Storage (string) and sets its value to leadsFromLocalStorage as an array
+let leadsFromLocalStorage = JSON.parse(localStorage.getItem('myleads'));
+
+// Checks for Local Storage values, if so, store it in myLeads Array
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage;
+    leadItems();
+}
 
 saveButton.addEventListener("click", function () {
   myLeads.push(inputEl.value);
   inputEl.value = "";
+  localStorage.setItem('myleads', JSON.stringify(myLeads));
   leadItems();
 });
 
@@ -27,5 +36,3 @@ function leadItems() {
 
   UlEl.innerHTML = listItems;
 }
-
-console.log(myLeads);
