@@ -5,6 +5,7 @@ const UlEl = document.querySelector("#ul-el");
 const deleteButton = document.querySelector("#delete-btn");
 const saveButton = document.querySelector("#input-btn");
 const tabButton = document.querySelector("#tab-btn");
+const deleteIcon = document.querySelector("#delete-icon");
 
 // Parses values from local Storage (string) and sets its value to leadsFromLocalStorage as an array
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myleads"));
@@ -15,6 +16,7 @@ if (leadsFromLocalStorage) {
     leadItems();
 }
 
+
 saveButton.addEventListener("click", function () {
     myLeads.push(inputEl.value);
     inputEl.value = "";
@@ -24,7 +26,10 @@ saveButton.addEventListener("click", function () {
 
 
 tabButton.addEventListener("click", function () {
-    chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
+    chrome.tabs.query({
+        active: true,
+        lastFocusedWindow: true
+    }, function (tabs) {
         myLeads.push(tabs[0].url);
         inputEl.value = "";
         localStorage.setItem('myleads', JSON.stringify(myLeads));
@@ -45,8 +50,7 @@ function leadItems() {
     let listItems = "";
 
     for (let i = 0; i < myLeads.length; i++) {
-        listItems += `<li><a target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a></li>`;
-
+        listItems += `<li><a target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a> <img id="delete-icon" alt="" src="delete-icon.png"> </li>`;
         // const li = document.createElement('li');
         // li.textContent = myLeads[i];
         // UlEl.append(li);
@@ -54,3 +58,10 @@ function leadItems() {
 
     UlEl.innerHTML = listItems;
 }
+
+// Event Listener that checks if certain id exists...if so, if statement comes true and works. (Event Delegation)
+document.body.addEventListener('click', function (e) {
+    if (e.target.id == 'delete-icon'){
+        console.log('clicked');
+    }
+})
