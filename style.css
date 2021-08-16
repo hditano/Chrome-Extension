@@ -62,12 +62,17 @@ ul {
 li {
     list-style-type: none;
     padding-top: 1px;
-
+    display: block;
 }
 
 li a {
     color: #5f9341;
     margin-top: -50px;
+}
+
+.bookmarks {
+    display: inline-block;
+    margin: 0 auto;
 }
 
 

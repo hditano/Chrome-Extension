@@ -12,13 +12,36 @@ const openModal = document.querySelector('#edit-btn');
 const closeModal = document.querySelector('#modal-btn');
 const overlay = document.querySelector('.overlay');
 
-openModal.addEventListener('click', function() {
+openModal.addEventListener('click', function () {
     overlay.style.display = 'block';
 })
 
-closeModal.addEventListener('click', function() {
+closeModal.addEventListener('click', function () {
     overlay.style.display = 'none';
 })
+
+/*********************************************************************************/
+// Search Module
+
+const searchButton = document.querySelector('search-btn');
+
+inputEl.addEventListener('keyup', function (e) {
+    let searchQuery = e.target.value.toLowerCase();
+    let allList = document.getElementsByClassName('bookmarks')
+
+    for (let i = 0; i < allList.length; i++) {
+        const currentName = allList[i].textContent.toLowerCase();
+
+        if (currentName.includes(searchQuery)) {
+            allList[i].style.display = 'inline-block';
+        } else {
+            allList[i].style.display = 'none';
+        }
+    }
+})
+
+
+/*********************************************************************************/
 
 // Parses values from local Storage (string) and sets its value to leadsFromLocalStorage as an array
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myleads"));
@@ -63,7 +86,7 @@ function leadItems() {
     let listItems = "";
 
     for (let i = 0; i < myLeads.length; i++) {
-        listItems += `<li data-id="${i}"><a target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a> <img id="delete-icon" alt="" src="delete-icon.png"> </li>`;
+        listItems += `<li data-id="${i}"><a class='bookmarks' target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a> <img id="delete-icon" alt="" src="delete-icon.png"> </li>`;
         // const li = document.createElement('li');
         // li.textContent = myLeads[i];
         // UlEl.append(li);
