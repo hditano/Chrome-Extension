@@ -33,7 +33,7 @@ inputEl.addEventListener('keyup', function (e) {
         const currentName = allList[i].textContent.toLowerCase();
 
         if (currentName.includes(searchQuery)) {
-            allList[i].style.display = 'inline-block';
+            allList[i].style.display = 'block';
         } else {
             allList[i].style.display = 'none';
         }
@@ -86,7 +86,7 @@ function leadItems() {
     let listItems = "";
 
     for (let i = 0; i < myLeads.length; i++) {
-        listItems += `<li data-id="${i}"><a class='bookmarks' target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a> <img id="delete-icon" alt="" src="delete-icon.png"> </li>`;
+        listItems += `<li class='bookmarks' data-id="${i}"><a target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a> <img id="delete-icon" alt="" src="delete-icon.png"> </li>`;
         // const li = document.createElement('li');
         // li.textContent = myLeads[i];
         // UlEl.append(li);
