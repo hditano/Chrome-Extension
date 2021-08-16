@@ -7,6 +7,19 @@ const saveButton = document.querySelector("#input-btn");
 const tabButton = document.querySelector("#tab-btn");
 const deleteIcon = document.querySelectorAll("#delete-icon");
 
+// Modal Logic
+const openModal = document.querySelector('#edit-btn');
+const closeModal = document.querySelector('#modal-btn');
+const overlay = document.querySelector('.overlay');
+
+openModal.addEventListener('click', function() {
+    overlay.style.display = 'block';
+})
+
+closeModal.addEventListener('click', function() {
+    overlay.style.display = 'none';
+})
+
 // Parses values from local Storage (string) and sets its value to leadsFromLocalStorage as an array
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myleads"));
 
