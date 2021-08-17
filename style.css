@@ -24,7 +24,7 @@ h1 {
     color: #5f9341;
 }
 
-#delete-icon {
+#delete-icon, #edit-icon {
     opacity: 0.5;
     width: 15px;
     height: auto;
@@ -34,7 +34,8 @@ h1 {
     left: 15px;
 }
 
-#delete-icon:hover {
+
+#delete-icon:hover, #edit-icon:hover {
     -webkit-transform: scale(1.3);
     -ms-transform: scale(1.3);
     transform: scale(1.3);
@@ -78,10 +79,29 @@ li a {
     margin: 0 auto;
 }
 
+/* Edit Configuration Modal */
+
+.overlay-edit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: pink;
+    display: none;
+}
+
+.modal-edit {
+    position: absolute;
+}
+
+
 
 /* Modal Styling */
 
-.overlay {
+/* .overlay {
     display: none;
     position: absolute;
     width: 100%;
@@ -109,4 +129,4 @@ li a {
     margin-right: auto;
     margin-left: auto;
     display: block;
-}
+} */

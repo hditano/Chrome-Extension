@@ -7,18 +7,9 @@ const saveButton = document.querySelector("#input-btn");
 const tabButton = document.querySelector("#tab-btn");
 const deleteIcon = document.querySelectorAll("#delete-icon");
 
-// Modal Logic
-const openModal = document.querySelector('#edit-btn');
-const closeModal = document.querySelector('#modal-btn');
-const overlay = document.querySelector('.overlay');
+// Modal UL List
+const UlModal = document.querySelector('#ul-modal');
 
-openModal.addEventListener('click', function () {
-    overlay.style.display = 'block';
-})
-
-closeModal.addEventListener('click', function () {
-    overlay.style.display = 'none';
-})
 
 /*********************************************************************************/
 // Search Module
@@ -41,6 +32,54 @@ inputEl.addEventListener('keyup', function (e) {
 })
 
 
+// Modal Edit Configuration
+
+const editButton = document.querySelector('#edit-btn');
+const overlayEdit = document.querySelector('.overlay-edit');
+const closeEdit = document.querySelector('.close-btn');
+const editIcon = document.querySelectorAll('#edit-icon');
+
+editButton.addEventListener('click', function() {
+    let listItems = '';
+    overlayEdit.style.display = 'block';
+    for(let i = 0; i < myLeads.length; i++) {
+        listItems += myLeads[i];
+    }
+    listItems = modalRender(UlModal);
+})
+
+closeEdit.addEventListener('click', function() {
+    overlayEdit.style.display = 'none';
+})
+
+// editIcon.addEventListener('click', function() {
+//     console.log('clicked');
+// })
+
+function modalRender(ulRender) {
+    let listItems = "";
+
+    for (let i = 0; i < myLeads.length; i++) {
+        // listItems += `<li class='bookmarks' data-id="${i}"><a target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a> <img id="edit-icon" alt="" src="edit-icon.png"></li>`;
+        const li = document.createElement('li');
+        li.classList = 'bookmarks';
+        li.dataset = `${i}`;
+        const a = document.createElement('a');
+        a.setAttribute('target', '_blank');
+        a.setAttribute('href', `http://${myLeads[i]}`);
+        a.textContent = `${myLeads[i]}`;
+        const img = document.createElement('img');
+        img.setAttribute('id', 'edit-icon');
+        img.setAttribute('src', 'edit-icon.png');
+        li.appendChild(a);
+        li.appendChild(img);
+        UlModal.appendChild(li);
+    }
+}
+
+
+
+
 /*********************************************************************************/
 
 // Parses values from local Storage (string) and sets its value to leadsFromLocalStorage as an array
@@ -49,7 +88,7 @@ const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myleads"));
 // Checks for Local Storage values, if so, store it in myLeads Array
 if (leadsFromLocalStorage) {
     myLeads = leadsFromLocalStorage;
-    leadItems();
+    leadItems(UlEl);
 }
 
 
@@ -57,7 +96,7 @@ saveButton.addEventListener("click", function () {
     myLeads.push(inputEl.value);
     inputEl.value = "";
     localStorage.setItem("myleads", JSON.stringify(myLeads));
-    leadItems();
+    leadItems(UlEl);
 });
 
 
@@ -69,7 +108,7 @@ tabButton.addEventListener("click", function () {
         myLeads.push(tabs[0].url);
         inputEl.value = "";
         localStorage.setItem('myleads', JSON.stringify(myLeads));
-        leadItems();
+        leadItems(UlEl);
     })
 });
 
@@ -77,12 +116,12 @@ tabButton.addEventListener("click", function () {
 deleteButton.addEventListener("dblclick", function () {
     localStorage.clear();
     myLeads = [];
-    leadItems();
+    leadItems(UlEl);
 });
 
 // Looping through myLeads array
 
-function leadItems() {
+function leadItems(ulRender) {
     let listItems = "";
 
     for (let i = 0; i < myLeads.length; i++) {
@@ -92,7 +131,7 @@ function leadItems() {
         // UlEl.append(li);
     }
 
-    UlEl.innerHTML = listItems;
+    ulRender.innerHTML = listItems;
 }
 
 
@@ -105,6 +144,6 @@ document.body.addEventListener('click', function (e) {
         let items = JSON.parse(localStorage.getItem('myleads'));
         myLeads.splice(dataID, 1);
         localStorage.setItem('myleads', JSON.stringify(myLeads));
-        leadItems();
+        leadItems(UlEl);
     }
 })
