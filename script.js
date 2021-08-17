@@ -49,19 +49,22 @@ editButton.addEventListener('click', function() {
 })
 
 closeEdit.addEventListener('click', function() {
+    const deleteLi = document.getElementsByClassName('bookmarks');
     overlayEdit.style.display = 'none';
+    console.log('clicked');
+    for(let i = deleteLi.length -1;i >= 0; i--) {
+        deleteLi[i].remove();
+    }
+    leadItems(UlEl);
+    
 })
 
-// editIcon.addEventListener('click', function() {
-//     console.log('clicked');
-// })
 
 function modalRender(ulRender) {
-    let listItems = "";
+    const li = document.createElement('li');
 
     for (let i = 0; i < myLeads.length; i++) {
-        // listItems += `<li class='bookmarks' data-id="${i}"><a target='_blank' href=http://${myLeads[i]}>${myLeads[i]}</a> <img id="edit-icon" alt="" src="edit-icon.png"></li>`;
-        const li = document.createElement('li');
+        
         li.classList = 'bookmarks';
         li.dataset = `${i}`;
         const a = document.createElement('a');
