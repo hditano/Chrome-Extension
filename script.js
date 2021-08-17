@@ -37,51 +37,47 @@ inputEl.addEventListener('keyup', function (e) {
 const editButton = document.querySelector('#edit-btn');
 const overlayEdit = document.querySelector('.overlay-edit');
 const closeEdit = document.querySelector('.close-btn');
-const editIcon = document.querySelectorAll('#edit-icon');
 
-editButton.addEventListener('click', function() {
+
+editButton.addEventListener('click', function () {
     let listItems = '';
     overlayEdit.style.display = 'block';
-    for(let i = 0; i < myLeads.length; i++) {
+    for (let i = 0; i < myLeads.length; i++) {
         listItems += myLeads[i];
     }
     listItems = modalRender(UlModal);
 })
 
-closeEdit.addEventListener('click', function() {
+
+closeEdit.addEventListener('click', function () {
     const deleteLi = document.getElementsByClassName('bookmarks');
     overlayEdit.style.display = 'none';
-    console.log('clicked');
-    for(let i = deleteLi.length -1;i >= 0; i--) {
+    for (let i = deleteLi.length - 1; i >= 0; i--) {
         deleteLi[i].remove();
     }
     leadItems(UlEl);
-    
+
 })
 
 
+
+
 function modalRender(ulRender) {
-    const li = document.createElement('li');
 
     for (let i = 0; i < myLeads.length; i++) {
-        
+
+        const li = document.createElement('li');
         li.classList = 'bookmarks';
         li.dataset = `${i}`;
         const a = document.createElement('a');
         a.setAttribute('target', '_blank');
         a.setAttribute('href', `http://${myLeads[i]}`);
+        a.setAttribute('class', 'edit-label');
         a.textContent = `${myLeads[i]}`;
-        const img = document.createElement('img');
-        img.setAttribute('id', 'edit-icon');
-        img.setAttribute('src', 'edit-icon.png');
         li.appendChild(a);
-        li.appendChild(img);
         UlModal.appendChild(li);
     }
 }
-
-
-
 
 /*********************************************************************************/
 
